@@ -1,0 +1,79 @@
+﻿@using Amazon
+@using Amazon.S3
+@model TraniningMVC.Models.PreSignedRequest
+
+@{
+    ViewBag.Title = "Test";
+}
+
+<h2>AWS S3 SDK test</h2>
+
+
+@using (Html.BeginForm("Test", "AwsBucket", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Pre-signed request</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.BucketRegionEnum, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EnumDropDownListFor(model => model.BucketRegionEnum, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BucketRegionEnum, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BucketName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.BucketName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BucketName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ObjectKey, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ObjectKey, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ObjectKey, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ExpirationTime, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.ExpirationTime, new { @class = "form-control", type = "datetime-local", style = "width: 270px", id = "expiration-datetime" })
+            @Html.ValidationMessageFor(model => model.ExpirationTime, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" id="http-method-select">
+        @Html.LabelFor(model => model.HttpRequestMethod, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EnumDropDownListFor(model => model.HttpRequestMethod, new { @class = "form-control", onchange = "onChangeHttpRequestMethod(this)" })
+            @Html.ValidationMessageFor(model => model.HttpRequestMethod, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group file-upload" style="display: none">
+        @Html.LabelFor(model => model.File, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.File, new { @type = "file", style = "width: 50%" })
+            @Html.ValidationMessageFor(model => model.File, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value=@Model.HttpRequestMethod class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/awsBucket/Test.js")
+}

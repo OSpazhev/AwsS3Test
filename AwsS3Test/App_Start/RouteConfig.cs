@@ -16,7 +16,7 @@ namespace AwsS3Test
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "AwsBucket", action = "Test", id = UrlParameter.Optional }
             );
         }
     }
