@@ -47,7 +47,7 @@ namespace TraniningMVC.Models
         public string BucketName { get; set; } = "test-bucket-pre-sign-url";
 
         [DisplayName("Object Key")]
-        public string ObjectKey { get; set; } = Guid.NewGuid().ToString();
+        public string ObjectKey { get; set; } = Guid.NewGuid().ToString() + ".zip";
 
         public HttpPostedFileBase File { get; set; }
 
