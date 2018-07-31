@@ -52,7 +52,7 @@ namespace TraniningMVC.Models
         public HttpPostedFileBase File { get; set; }
 
         [Range(0, 3, ErrorMessage = "Select a correct license")]
-        public HttpVerb HttpRequestMethod { get; set; }
+        public HttpVerb HttpRequestMethod { get; set; } = HttpVerb.PUT;
 
         [DataType(DataType.DateTime)]
         [DisplayName("Expiration time")]
