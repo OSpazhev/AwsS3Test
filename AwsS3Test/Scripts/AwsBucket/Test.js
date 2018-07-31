@@ -26,7 +26,7 @@ function sendFileToTheBucket() {
             alert('Wrong data for generate object key');
         },
         success: function (preSignedUrl) {
-            sendFile(preSignedUrl);
+            sendFile(preSignedUrl)
         }
     })
 }
@@ -37,12 +37,13 @@ function sendFile(preSignedUrl) {
         return alert('Please choose a file to upload first.');
     }
 
-    var request = $.ajax({
+    $.ajax({
         url: preSignedUrl,
         data: files[0],
         type: 'PUT',
         contentType: 'binary/octet-stream',
         processData: false,
+        async: false,
         beforeSend: function () {
         },
         error: function (xhr) {
@@ -51,5 +52,7 @@ function sendFile(preSignedUrl) {
         success: function (data) {
             return alert('Uploading success');
         }
-    })
+    });
+
+    location.reload();
 }
